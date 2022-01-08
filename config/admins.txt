@@ -7,3 +7,4 @@
 SemiLargeMan = Host
 Merryweather = Game Master
 OldBoyontheStreet = Game Master
+Mr. Alex Man = Game Admin
