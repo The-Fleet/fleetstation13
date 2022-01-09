@@ -55012,6 +55012,7 @@
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
 	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/command/bridge)
 "nDy" = (
@@ -77362,10 +77363,6 @@
 /obj/structure/grille,
 /turf/open/floor/plating/asteroid/airless,
 /area/space/nearstation)
-"vRa" = (
-/obj/structure/lattice/catwalk,
-/turf/open/floor/plating/airless,
-/area/solars/port/aft)
 "vRn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -94669,7 +94666,7 @@ foo
 foo
 foo
 foo
-foo
+rnW
 foo
 foo
 foo
@@ -94926,7 +94923,7 @@ jOe
 jOe
 jOe
 jOe
-foo
+rnW
 jOe
 jOe
 jOe
@@ -95183,7 +95180,7 @@ jOe
 jOe
 jOe
 jOe
-foo
+rnW
 jOe
 jOe
 jOe
@@ -95440,7 +95437,7 @@ foo
 foo
 foo
 foo
-foo
+rnW
 foo
 foo
 foo
@@ -95628,7 +95625,7 @@ ixU
 ixU
 ixU
 ixU
-nBm
+ixU
 ixU
 ixU
 ixU
@@ -95697,7 +95694,7 @@ jOe
 jOe
 jOe
 jOe
-foo
+rnW
 jOe
 jOe
 jOe
@@ -95885,7 +95882,7 @@ fER
 fER
 fER
 fER
-nBm
+ixU
 fER
 fER
 fER
@@ -95954,7 +95951,7 @@ jOe
 jOe
 jOe
 jOe
-foo
+rnW
 jOe
 jOe
 jOe
@@ -96142,7 +96139,7 @@ ckk
 aaa
 aaa
 ckk
-nBm
+ixU
 ckk
 aaa
 aaa
@@ -96211,7 +96208,7 @@ foo
 foo
 foo
 foo
-foo
+rnW
 foo
 foo
 foo
@@ -96399,7 +96396,7 @@ fER
 fER
 fER
 tHI
-nBm
+ixU
 fuO
 fER
 fER
@@ -96468,7 +96465,7 @@ jOe
 jOe
 jOe
 jOe
-foo
+rnW
 jOe
 jOe
 jOe
@@ -96655,9 +96652,9 @@ ixU
 ixU
 ixU
 ixU
-nBm
-nBm
-nBm
+ixU
+ixU
+ixU
 ixU
 ixU
 ixU
@@ -96725,7 +96722,7 @@ jOe
 jOe
 jOe
 jOe
-foo
+rnW
 jOe
 jOe
 jOe
@@ -96913,7 +96910,7 @@ fER
 fER
 fER
 fuO
-nBm
+ixU
 fuO
 fER
 fER
@@ -96982,7 +96979,7 @@ rhC
 foo
 foo
 foo
-foo
+rnW
 foo
 foo
 foo
@@ -97170,7 +97167,7 @@ ckk
 aaa
 aaa
 ckk
-nBm
+ixU
 ckk
 aaa
 aaa
@@ -97239,7 +97236,7 @@ cmU
 cmU
 cmU
 cmU
-vRa
+vOE
 cmU
 cmU
 cmU
@@ -97427,7 +97424,7 @@ fER
 fER
 fER
 fER
-nBm
+ixU
 fER
 fER
 fER
@@ -97496,7 +97493,7 @@ aeU
 aeU
 aeU
 cmU
-vRa
+vOE
 aeU
 aeU
 aeU
@@ -97684,7 +97681,7 @@ ixU
 ixU
 ixU
 ixU
-nBm
+ixU
 ixU
 ixU
 ixU
@@ -97753,7 +97750,7 @@ aeu
 aeU
 aeU
 cmU
-vRa
+vOE
 cmU
 aeU
 aeU
@@ -97941,7 +97938,7 @@ fER
 fER
 fER
 fER
-nBm
+ixU
 fER
 fER
 fER
@@ -98010,7 +98007,7 @@ aeu
 aeu
 rkn
 aDS
-vRa
+vOE
 bFI
 aeU
 coy
@@ -98198,7 +98195,7 @@ cmU
 cmU
 cmU
 aDS
-nBm
+ixU
 bFI
 cmU
 cmU
@@ -98455,7 +98452,7 @@ aeU
 coy
 woH
 aDS
-nBm
+ixU
 bFI
 rkn
 aeU
@@ -125269,7 +125266,7 @@ aeu
 aeu
 aeU
 aDS
-kuv
+qgQ
 bFI
 rkn
 coy
@@ -125526,7 +125523,7 @@ aeU
 aeU
 aUz
 aDS
-kuv
+qgQ
 bFI
 aeU
 aeU
@@ -125783,7 +125780,7 @@ cmU
 cmU
 cmU
 aDS
-kuv
+qgQ
 bFI
 cmU
 cmU
@@ -126040,7 +126037,7 @@ hsn
 hsn
 hsn
 hsn
-kuv
+qgQ
 nRr
 nRr
 nRr
@@ -126297,7 +126294,7 @@ qgQ
 qgQ
 qgQ
 qgQ
-kuv
+qgQ
 qgQ
 qgQ
 qgQ
@@ -126554,7 +126551,7 @@ nRr
 hsn
 hsn
 hsn
-kuv
+qgQ
 nRr
 nRr
 nRr
@@ -126811,7 +126808,7 @@ ckk
 aaa
 aaa
 ckk
-kuv
+qgQ
 ckk
 aaa
 aaa
@@ -127068,7 +127065,7 @@ hsn
 nRr
 nRr
 xOh
-kuv
+qgQ
 xOh
 nRr
 nRr
@@ -127324,9 +127321,9 @@ qgQ
 qgQ
 qgQ
 qgQ
-kuv
-kuv
-kuv
+qgQ
+qgQ
+qgQ
 qgQ
 qgQ
 qgQ
@@ -127582,7 +127579,7 @@ nRr
 nRr
 hsn
 xOh
-kuv
+qgQ
 xOh
 hsn
 hsn
@@ -127839,7 +127836,7 @@ ckk
 aaa
 aaa
 ckk
-kuv
+qgQ
 ckk
 aaa
 aaa
@@ -128096,7 +128093,7 @@ nRr
 nRr
 nRr
 nRr
-kuv
+qgQ
 hsn
 hsn
 hsn
@@ -128353,7 +128350,7 @@ qgQ
 wRX
 qgQ
 qgQ
-kuv
+qgQ
 qgQ
 qgQ
 qgQ
@@ -129040,7 +129037,7 @@ cmU
 cmU
 cmU
 aDS
-oaA
+sTh
 bFI
 cmU
 cmU
@@ -129297,7 +129294,7 @@ xLT
 xLT
 xLT
 xLT
-oaA
+sTh
 xLT
 xLT
 xLT
@@ -129554,7 +129551,7 @@ wUN
 sTh
 sTh
 sTh
-oaA
+sTh
 sTh
 sTh
 sTh
@@ -129811,7 +129808,7 @@ xLT
 xLT
 xLT
 xLT
-oaA
+sTh
 xLT
 xLT
 xLT
@@ -130068,7 +130065,7 @@ ckk
 aaa
 aaa
 ckk
-oaA
+sTh
 ckk
 aaa
 aaa
@@ -130325,7 +130322,7 @@ xLT
 xLT
 xLT
 pDk
-oaA
+sTh
 pDk
 xLT
 xLT
@@ -130581,9 +130578,9 @@ sTh
 sTh
 sTh
 sTh
-oaA
-oaA
-oaA
+sTh
+sTh
+sTh
 sTh
 sTh
 sTh
@@ -130839,7 +130836,7 @@ xLT
 xLT
 xLT
 pDk
-oaA
+sTh
 pDk
 xLT
 xLT
@@ -131096,7 +131093,7 @@ ckk
 aaa
 aaa
 ckk
-oaA
+sTh
 ckk
 aaa
 aaa
@@ -131353,7 +131350,7 @@ xLT
 xLT
 xLT
 xLT
-oaA
+sTh
 xLT
 xLT
 xLT
@@ -131610,7 +131607,7 @@ sTh
 sTh
 sTh
 sTh
-oaA
+sTh
 sTh
 sTh
 sTh

@@ -68,19 +68,10 @@
 /obj/structure/cable,
 /turf/open/floor/iron/solarpanel/airless,
 /area/maintenance/solars/starboard/fore)
-"aap" = (
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/maintenance/solars/starboard/fore)
 "aaq" = (
 /obj/effect/landmark/carpspawn,
 /turf/open/space/basic,
 /area/space)
-"aar" = (
-/obj/structure/lattice/catwalk,
-/obj/item/stack/cable_coil,
-/turf/open/space/basic,
-/area/maintenance/solars/starboard/fore)
 "aas" = (
 /obj/docking_port/stationary/random{
 	id = "pod_lavaland2";
@@ -15851,10 +15842,6 @@
 	},
 /turf/open/floor/iron,
 /area/hallway/primary/fore)
-"aJV" = (
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/maintenance/solars/port/fore)
 "aJW" = (
 /obj/structure/frame/computer{
 	dir = 4
@@ -16190,11 +16177,6 @@
 /obj/machinery/power/tracker,
 /obj/structure/cable,
 /turf/open/floor/iron/solarpanel/airless,
-/area/maintenance/solars/port/fore)
-"aKN" = (
-/obj/structure/lattice/catwalk,
-/obj/item/stack/cable_coil,
-/turf/open/space/basic,
 /area/maintenance/solars/port/fore)
 "aKO" = (
 /obj/structure/frame/computer{
@@ -49178,10 +49160,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/science/test_area)
-"cmO" = (
-/obj/structure/lattice/catwalk,
-/turf/open/space/basic,
-/area/maintenance/solars/port/aft)
 "cmQ" = (
 /turf/open/floor/plating,
 /area/engineering/lobby)
@@ -50051,11 +50029,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
-"coG" = (
-/obj/structure/lattice/catwalk,
-/obj/item/stack/cable_coil,
-/turf/open/space/basic,
-/area/maintenance/solars/port/aft)
 "coH" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Access";
@@ -87010,9 +86983,9 @@ cgj
 cgj
 cgj
 cgj
-cmO
-cmO
-cmO
+cgj
+cgj
+cgj
 cgj
 cgj
 cgj
@@ -87268,7 +87241,7 @@ ceV
 ceV
 ceV
 aaa
-cmO
+cgj
 aaa
 ceV
 ceV
@@ -87525,7 +87498,7 @@ ceV
 ceV
 ceV
 aaa
-cmO
+cgj
 aaa
 ceV
 ceV
@@ -87781,9 +87754,9 @@ cgj
 cgj
 cgj
 cgj
-cmO
-cmO
-cmO
+cgj
+cgj
+cgj
 cgj
 cgj
 cgj
@@ -88039,7 +88012,7 @@ ceV
 ceV
 ceV
 aaa
-cmO
+cgj
 aaa
 ceV
 ceV
@@ -88296,7 +88269,7 @@ ceV
 ceV
 ceV
 aaa
-cmO
+cgj
 aaa
 ceV
 ceV
@@ -88552,9 +88525,9 @@ cgj
 cgj
 cgj
 cgj
-cmO
-cmO
-cmO
+cgj
+cgj
+cgj
 cgj
 cgj
 cgj
@@ -88810,7 +88783,7 @@ ceV
 ceV
 ceV
 aaa
-cmO
+cgj
 aaa
 ceV
 ceV
@@ -89067,7 +89040,7 @@ aak
 aak
 aak
 aak
-cmO
+cgj
 aaa
 aaa
 aaa
@@ -89324,8 +89297,8 @@ aae
 aae
 aak
 aak
-coG
-cmO
+cgj
+cgj
 cgj
 cgj
 cgj
@@ -89771,9 +89744,9 @@ aGh
 aGh
 aGh
 aGh
-aJV
-aJV
-aJV
+aGh
+aGh
+aGh
 aGh
 aGh
 aGh
@@ -90029,7 +90002,7 @@ aFj
 aFj
 aFj
 aaa
-aJV
+aGh
 aaa
 aFj
 aFj
@@ -90286,7 +90259,7 @@ aFj
 aFj
 aFj
 aaa
-aJV
+aGh
 aaa
 aFj
 aFj
@@ -90542,9 +90515,9 @@ aGh
 aGh
 aGh
 aGh
-aJV
-aKN
-aJV
+aGh
+aGh
+aGh
 aGh
 aGh
 aGh
@@ -90800,7 +90773,7 @@ aFj
 aFj
 aFj
 aaa
-aJV
+aGh
 aaa
 aFj
 aFj
@@ -91057,7 +91030,7 @@ aFj
 aFj
 aFj
 aaa
-aJV
+aGh
 aaa
 aFj
 aFj
@@ -91313,9 +91286,9 @@ aGh
 aGh
 aGh
 aGh
-aJV
-aJV
-aJV
+aGh
+aGh
+aGh
 aGh
 aGh
 aGh
@@ -91571,7 +91544,7 @@ aFj
 aFj
 aFj
 aaa
-aJV
+aGh
 aaa
 aFj
 aFj
@@ -91828,7 +91801,7 @@ aak
 aak
 aak
 aak
-aJV
+aGh
 aak
 aak
 aak
@@ -92085,7 +92058,7 @@ aae
 aae
 aaa
 aaa
-aJV
+aGh
 aaa
 aaa
 aaa
@@ -92342,7 +92315,7 @@ aaa
 aaa
 aaa
 aaa
-aJV
+aGh
 aaa
 aaa
 aOa
@@ -108726,13 +108699,13 @@ aak
 aak
 aak
 aaa
-aap
+aan
 aaa
 aaa
-aap
+aan
 aaa
 aaa
-aap
+aan
 aaa
 aak
 aat
@@ -108983,14 +108956,14 @@ aaE
 aan
 aan
 aan
-aap
-aap
-aap
-aap
-aap
-aap
-aap
-aap
+aan
+aan
+aan
+aan
+aan
+aan
+aan
+aan
 aan
 aaH
 aaV
@@ -109240,13 +109213,13 @@ aak
 aak
 aak
 aaa
-aap
+aan
 aaa
 aaa
-aap
+aan
 aaa
 aaa
-aar
+aan
 aaa
 aak
 aat

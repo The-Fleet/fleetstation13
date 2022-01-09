@@ -7372,8 +7372,9 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "byF" = (
+/obj/structure/cable,
 /turf/open/floor/plating/airless,
-/area/solars/starboard/aft)
+/area/space)
 "byH" = (
 /obj/machinery/light/small/directional/west,
 /turf/open/floor/iron/freezer,
@@ -26700,8 +26701,11 @@
 /turf/open/floor/iron/dark,
 /area/science/storage)
 "hih" = (
-/turf/open/floor/plating/airless,
-/area/solars/port/fore)
+/obj/structure/cable,
+/turf/open/floor/plating/airless{
+	luminosity = 2
+	},
+/area/space)
 "hij" = (
 /obj/machinery/door/airlock/external{
 	name = "Auxiliary Airlock"
@@ -29481,6 +29485,7 @@
 /area/commons/fitness/recreation)
 "iit" = (
 /obj/structure/cable,
+/obj/machinery/power/solar,
 /turf/open/floor/iron/solarpanel/airless,
 /area/solars/starboard/aft)
 "iix" = (
@@ -43119,8 +43124,11 @@
 /turf/open/floor/iron,
 /area/engineering/atmos)
 "mYG" = (
-/turf/open/floor/plating/airless,
-/area/solars/port/aft)
+/obj/structure/cable,
+/turf/open/floor/plating/airless{
+	icon_state = "platingdmg2"
+	},
+/area/space)
 "mYO" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/structure/chair/comfy/black{
@@ -43976,9 +43984,6 @@
 /obj/item/radio/intercom/directional/west,
 /turf/open/floor/iron/dark,
 /area/security/office)
-"nnT" = (
-/turf/open/floor/plating/airless,
-/area/solars/starboard/fore)
 "nnX" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/atmos/nitrogen_output{
 	dir = 1
@@ -47311,6 +47316,7 @@
 /area/engineering/supermatter/room)
 "owm" = (
 /obj/structure/lattice/catwalk,
+/obj/structure/cable,
 /turf/open/space/basic,
 /area/solars/starboard/aft)
 "owz" = (
@@ -47907,6 +47913,7 @@
 /turf/open/floor/iron,
 /area/security/prison)
 "oGh" = (
+/obj/structure/cable,
 /turf/open/floor/plating/airless{
 	icon_state = "platingdmg1"
 	},
@@ -48080,6 +48087,7 @@
 	},
 /area/medical/medbay/central)
 "oKe" = (
+/obj/structure/cable,
 /turf/open/floor/plating/airless{
 	icon_state = "platingdmg2"
 	},
@@ -48531,6 +48539,7 @@
 /turf/open/floor/iron,
 /area/maintenance/fore)
 "oSg" = (
+/obj/structure/cable,
 /turf/open/floor/plating/airless{
 	icon_state = "platingdmg2"
 	},
@@ -53925,6 +53934,7 @@
 /turf/open/floor/iron/white,
 /area/medical/surgery)
 "qLW" = (
+/obj/structure/cable,
 /turf/open/floor/plating/airless{
 	icon_state = "panelscorched"
 	},
@@ -54732,6 +54742,7 @@
 /turf/open/floor/iron,
 /area/hallway/primary/central)
 "rdX" = (
+/obj/structure/cable,
 /turf/open/floor/plating/airless{
 	icon_state = "platingdmg3"
 	},
@@ -60666,6 +60677,7 @@
 /turf/open/floor/iron/dark,
 /area/security/office)
 "tkX" = (
+/obj/structure/cable,
 /turf/open/floor/plating/airless{
 	icon_state = "panelscorched"
 	},
@@ -66758,10 +66770,6 @@
 	},
 /turf/open/floor/iron/white,
 /area/medical/pharmacy)
-"vsN" = (
-/obj/structure/cable,
-/turf/open/floor/iron/solarpanel/airless,
-/area/solars/port/aft)
 "vsS" = (
 /obj/structure/chair/stool/directional/west,
 /obj/machinery/camera/directional/north{
@@ -71643,6 +71651,7 @@
 /turf/open/floor/engine,
 /area/engineering/supermatter/room)
 "xfX" = (
+/obj/structure/cable,
 /turf/open/floor/plating/airless{
 	icon_state = "panelscorched"
 	},
@@ -74420,6 +74429,7 @@
 /turf/open/floor/iron/dark,
 /area/engineering/atmos)
 "yjk" = (
+/obj/structure/cable,
 /turf/open/floor/plating/airless{
 	icon_state = "platingdmg1"
 	},
@@ -85511,7 +85521,7 @@ aaa
 aaa
 dPw
 aaa
-hih
+lEC
 aaa
 rrt
 aaa
@@ -87053,7 +87063,7 @@ aaa
 aaa
 lMJ
 aaa
-hih
+lEC
 aaa
 sBd
 aaa
@@ -87169,7 +87179,7 @@ gnA
 sCl
 lMJ
 lMJ
-mYG
+dOy
 aaa
 aaa
 aaa
@@ -87310,7 +87320,7 @@ aaa
 aaa
 lMJ
 aaa
-hih
+lEC
 aaa
 lMJ
 aaa
@@ -87426,7 +87436,7 @@ lMJ
 aaa
 aaa
 aaa
-mYG
+dOy
 aaa
 lMJ
 aaa
@@ -87567,7 +87577,7 @@ eMf
 eMf
 jvw
 lMJ
-hih
+lEC
 lMJ
 jvw
 eMf
@@ -88079,11 +88089,11 @@ lMJ
 eMf
 eMf
 eMf
-jvw
+mNa
 mNa
 lEC
 mNa
-jvw
+mNa
 eMf
 eMf
 eMf
@@ -88711,7 +88721,7 @@ aaa
 aaa
 lMJ
 tia
-mYG
+dOy
 tia
 tia
 tia
@@ -88970,7 +88980,7 @@ tia
 fEp
 dOy
 fEp
-yef
+fEp
 fEp
 fEp
 fEp
@@ -89109,7 +89119,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+byF
 aaa
 aaa
 aaa
@@ -89225,7 +89235,7 @@ aaa
 aaa
 lMJ
 tia
-mYG
+dOy
 tia
 tia
 tia
@@ -89366,7 +89376,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+hih
 aaa
 aaa
 aaa
@@ -89623,7 +89633,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+mYG
 aaa
 aaa
 aaa
@@ -89738,14 +89748,14 @@ suP
 aaa
 aaa
 lMJ
-vsN
-mYG
-vsN
-vsN
-vsN
-vsN
-vsN
-vsN
+tia
+dOy
+tia
+tia
+tia
+tia
+tia
+tia
 lMJ
 lMJ
 lMJ
@@ -89880,7 +89890,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+byF
 aaa
 aaa
 aaa
@@ -89994,16 +90004,16 @@ dBN
 lMJ
 lMJ
 lMJ
-vsN
+tia
 yef
-mYG
+dOy
 fEp
 fEp
 fEp
-yef
 fEp
 fEp
-vsN
+fEp
+tia
 aaa
 lMJ
 aaa
@@ -90137,7 +90147,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+byF
 aaa
 aaa
 aaa
@@ -90252,14 +90262,14 @@ aaa
 aaa
 aaa
 lMJ
-vsN
+tia
 tkX
-vsN
-vsN
-vsN
-vsN
-vsN
-vsN
+tia
+tia
+tia
+tia
+tia
+tia
 lMJ
 lMJ
 lMJ
@@ -90766,14 +90776,14 @@ aaa
 aaa
 aaa
 lMJ
-vsN
+tia
 dOy
-vsN
-vsN
-vsN
-vsN
-vsN
-vsN
+tia
+tia
+tia
+tia
+tia
+tia
 lMJ
 lMJ
 lMJ
@@ -90908,7 +90918,7 @@ mNa
 mNa
 jvw
 aaa
-hih
+lEC
 aaa
 jvw
 jvw
@@ -91022,16 +91032,16 @@ dBN
 lMJ
 lMJ
 lMJ
-vsN
+tia
 fEp
 dOy
-yef
-yef
 fEp
 fEp
 fEp
 fEp
-vsN
+fEp
+fEp
+tia
 aaa
 anS
 anS
@@ -91280,14 +91290,14 @@ aaa
 aaa
 aaa
 aaa
-vsN
+tia
 dOy
-vsN
-vsN
-vsN
-vsN
-vsN
-vsN
+tia
+tia
+tia
+tia
+tia
+tia
 lMJ
 lMJ
 lMJ
@@ -91422,7 +91432,7 @@ mNa
 mNa
 jvw
 aaa
-hih
+lEC
 aaa
 jvw
 mNa
@@ -112625,7 +112635,7 @@ mIj
 mIj
 mIj
 mIj
-byF
+mIj
 mIj
 mIj
 viT
@@ -118920,7 +118930,6 @@ yaC
 yaC
 qLW
 yaC
-nnT
 yaC
 yaC
 yaC
@@ -118930,8 +118939,9 @@ yaC
 yaC
 yaC
 yaC
-nnT
-nnT
+yaC
+yaC
+yaC
 yaC
 oUF
 amN
@@ -119176,13 +119186,13 @@ aaa
 aaa
 aaa
 aaa
-dUd
+ilj
 aaa
 aaa
 aaa
 aaa
 aaa
-dUd
+ilj
 aaa
 aaa
 aaa
@@ -120204,7 +120214,7 @@ aaa
 aaa
 xfJ
 xfJ
-dUd
+ilj
 xfJ
 xfJ
 aaa
@@ -120461,13 +120471,13 @@ aaa
 aaa
 xfJ
 xfJ
-dUd
+ilj
 xfJ
 xfJ
 aaa
 xfJ
 xfJ
-dUd
+ilj
 xfJ
 xfJ
 aaa
@@ -120718,13 +120728,13 @@ lMJ
 lMJ
 dUd
 dUd
-dUd
+ilj
 dUd
 dUd
 lMJ
 rqc
 dUd
-dUd
+ilj
 yaC
 yaC
 uay
@@ -120981,7 +120991,7 @@ xfJ
 aaa
 xfJ
 xfJ
-dUd
+ilj
 xfJ
 xfJ
 aaa
