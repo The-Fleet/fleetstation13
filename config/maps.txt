@@ -35,6 +35,14 @@ map tramstation
 	votable
 endmap
 
+map heliostation
+	votable
+endmap
+
+map selenestation
+	disabled
+endmap
+
 map runtimestation
 endmap
 
