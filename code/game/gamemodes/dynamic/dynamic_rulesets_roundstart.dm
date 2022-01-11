@@ -182,7 +182,7 @@
 	weight = 3
 	cost = 16
 	scaling_cost = 10
-	requirements = list(70,70,60,50,40,20,20,10,10,10)
+	requirements = list(60,60,50,40,40,20,20,10,10,10)
 	antag_cap = list("denominator" = 29)
 
 /datum/dynamic_ruleset/roundstart/changeling/pre_execute(population)
