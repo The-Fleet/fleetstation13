@@ -24,7 +24,7 @@
 		JOB_CYBORG,
 	)
 	required_candidates = 1
-	weight = 5
+	weight = 8
 	cost = 8 // Avoid raising traitor threat above this, as it is the default low cost ruleset.
 	scaling_cost = 9
 	requirements = list(8,8,8,8,8,8,8,8,8,8)
@@ -120,7 +120,7 @@
 		JOB_CYBORG,
 	)
 	required_candidates = 2
-	weight = 2
+	weight = 4
 	cost = 12
 	scaling_cost = 15
 	requirements = list(40,30,30,20,20,15,15,15,10,10)
@@ -616,7 +616,7 @@
 	antag_datum = null
 	restricted_roles = list()
 	required_candidates = 0
-	weight = 3
+	weight = 1
 	cost = 0
 	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	flags = LONE_RULESET
