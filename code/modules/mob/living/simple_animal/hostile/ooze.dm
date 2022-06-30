@@ -153,10 +153,16 @@
 	return (ooze.ooze_nutrition >= nutrition_cost && !active)
 
 ///Give the mob a speed boost, heat it up every second, and end the ability in 6 seconds
-/datum/action/cooldown/metabolicboost/Trigger()
-	. = ..()
-	if(!.)
-		return
+/datum/action/cooldown/metabolicboost/Activate(atom/target)
+	StartCooldown(10 SECONDS)
+	trigger_boost()
+	StartCooldown()
+	return TRUE
+
+/*
+ * Actually trigger the boost.
+ */
+/datum/action/cooldown/metabolicboost/proc/trigger_boost()
 	var/mob/living/simple_animal/hostile/ooze/ooze = owner
 	ooze.add_movespeed_modifier(/datum/movespeed_modifier/metabolicboost)
 	var/timerid = addtimer(CALLBACK(src, .proc/HeatUp), 1 SECONDS, TIMER_STOPPABLE | TIMER_LOOP) //Heat up every second
@@ -195,14 +201,14 @@
 /datum/action/consume/New(Target)
 	. = ..()
 	RegisterSignal(owner, COMSIG_LIVING_DEATH, .proc/on_owner_death)
-	RegisterSignal(owner, COMSIG_PARENT_PREQDELETED, .proc/handle_mob_deletion)
+	RegisterSignal(owner, COMSIG_PARENT_QDELETING, .proc/handle_mob_deletion)
 
 /datum/action/consume/proc/handle_mob_deletion()
 	SIGNAL_HANDLER
 	stop_consuming() //Shit out the vored mob before u go go
 
 ///Try to consume the pulled mob
-/datum/action/consume/Trigger()
+/datum/action/consume/Trigger(trigger_flags)
 	. = ..()
 	if(!.)
 		return
@@ -227,7 +233,7 @@
 /datum/action/consume/proc/start_consuming(mob/living/target)
 	vored_mob = target
 	vored_mob.forceMove(owner) ///AAAAAAAAAAAAAAAAAAAAAAHHH!!!
-	RegisterSignal(vored_mob, COMSIG_PARENT_PREQDELETED, .proc/handle_mob_deletion)
+	RegisterSignal(vored_mob, COMSIG_PARENT_QDELETING, .proc/handle_mob_deletion)
 	playsound(owner,'sound/items/eatfood.ogg', rand(30,50), TRUE)
 	owner.visible_message(span_warning("[src] devours [target]!"), span_notice("You devour [target]."))
 	START_PROCESSING(SSprocessing, src)
@@ -238,7 +244,7 @@
 	vored_mob.forceMove(get_turf(owner))
 	playsound(get_turf(owner), 'sound/effects/splat.ogg', 50, TRUE)
 	owner.visible_message(span_warning("[owner] pukes out [vored_mob]!"), span_notice("You puke out [vored_mob]."))
-	UnregisterSignal(vored_mob, COMSIG_PARENT_PREQDELETED)
+	UnregisterSignal(vored_mob, COMSIG_PARENT_QDELETING)
 	vored_mob = null
 
 ///Gain health for the consumption and dump some clone loss on the target.

@@ -7,7 +7,6 @@
 
 /datum/dynamic_ruleset/roundstart/traitor
 	name = "Traitors"
-	persistent = TRUE
 	antag_flag = ROLE_TRAITOR
 	antag_datum = /datum/antagonist/traitor
 	minimum_required_age = 0
@@ -28,13 +27,11 @@
 	cost = 8 // Avoid raising traitor threat above this, as it is the default low cost ruleset.
 	scaling_cost = 9
 	requirements = list(8,8,8,8,8,8,8,8,8,8)
-	antag_cap = list("denominator" = 24)
+	antag_cap = list("denominator" = 38)
 	var/autotraitor_cooldown = (15 MINUTES)
-	COOLDOWN_DECLARE(autotraitor_cooldown_check)
 
 /datum/dynamic_ruleset/roundstart/traitor/pre_execute(population)
 	. = ..()
-	COOLDOWN_START(src, autotraitor_cooldown_check, autotraitor_cooldown)
 	var/num_traitors = get_antag_cap(population) * (scaled_times + 1)
 	for (var/i = 1 to num_traitors)
 		if(candidates.len <= 0)
@@ -45,12 +42,6 @@
 		M.mind.restricted_roles = restricted_roles
 		GLOB.pre_setup_antags += M.mind
 	return TRUE
-
-/datum/dynamic_ruleset/roundstart/traitor/rule_process()
-	if (COOLDOWN_FINISHED(src, autotraitor_cooldown_check))
-		COOLDOWN_START(src, autotraitor_cooldown_check, autotraitor_cooldown)
-		log_game("DYNAMIC: Checking if we can turn someone into a traitor.")
-		mode.picking_specific_rule(/datum/dynamic_ruleset/midround/autotraitor)
 
 //////////////////////////////////////////////
 //                                          //
@@ -207,7 +198,7 @@
 
 //////////////////////////////////////////////
 //                                          //
-//              ELDRITCH CULT               //
+//                 HERETICS                 //
 //                                          //
 //////////////////////////////////////////////
 
@@ -319,7 +310,18 @@
 	antag_flag = ROLE_CULTIST
 	antag_datum = /datum/antagonist/cult
 	minimum_required_age = 14
-	restricted_roles = list(JOB_AI, JOB_CYBORG, JOB_CAPTAIN, JOB_HEAD_OF_PERSONNEL, JOB_CHAPLAIN, JOB_HEAD_OF_SECURITY, JOB_WARDEN, JOB_SECURITY_OFFICER, JOB_DETECTIVE)
+	restricted_roles = list(
+		JOB_AI,
+		JOB_CAPTAIN,
+		JOB_CHAPLAIN,
+		JOB_CYBORG,
+		JOB_DETECTIVE,
+		JOB_HEAD_OF_PERSONNEL,
+		JOB_HEAD_OF_SECURITY,
+		JOB_PRISONER,
+		JOB_SECURITY_OFFICER,
+		JOB_WARDEN,
+	)
 	required_candidates = 2
 	weight = 3
 	cost = 20
@@ -462,7 +464,7 @@
 	name = "Revolution"
 	persistent = TRUE
 	antag_flag = ROLE_REV_HEAD
-	antag_flag_override = ROLE_REV
+	antag_flag_override = ROLE_REV_HEAD
 	antag_datum = /datum/antagonist/rev/head
 	minimum_required_age = 14
 	restricted_roles = list(
@@ -474,6 +476,8 @@
 		JOB_DETECTIVE,
 		JOB_HEAD_OF_PERSONNEL,
 		JOB_HEAD_OF_SECURITY,
+		JOB_PRISONER,
+		JOB_QUARTERMASTER,
 		JOB_RESEARCH_DIRECTOR,
 		JOB_SECURITY_OFFICER,
 		JOB_WARDEN,
@@ -692,13 +696,58 @@
 
 	spawn_meteors(ramp_up_final, wavetype)
 
+/// Ruleset for thieves
+/datum/dynamic_ruleset/roundstart/thieves
+	name = "Thieves"
+	antag_flag = ROLE_THIEF
+	antag_datum = /datum/antagonist/thief
+	protected_roles = list(
+		JOB_CAPTAIN,
+		JOB_DETECTIVE,
+		JOB_HEAD_OF_SECURITY,
+		JOB_PRISONER,
+		JOB_SECURITY_OFFICER,
+		JOB_WARDEN,
+	)
+	restricted_roles = list(
+		JOB_AI,
+		JOB_CYBORG,
+	)
+	required_candidates = 1
+	weight = 3
+	cost = 4 //very cheap cost for the round
+	scaling_cost = 0
+	requirements = list(8,8,8,8,8,8,8,8,8,8)
+	antag_cap = list("denominator" = 24, "offset" = 2)
+	flags = LONE_RULESET
+
+/datum/dynamic_ruleset/roundstart/thieves/pre_execute(population)
+	. = ..()
+	var/num_thieves = get_antag_cap(population) * (scaled_times + 1)
+	for (var/i = 1 to num_thieves)
+		if(candidates.len <= 0)
+			break
+		var/mob/chosen_mind = pick_n_take(candidates)
+		assigned += chosen_mind.mind
+		chosen_mind.mind.restricted_roles = restricted_roles
+		chosen_mind.mind.special_role = ROLE_THIEF
+		GLOB.pre_setup_antags += chosen_mind.mind
+	return TRUE
+
+/datum/dynamic_ruleset/roundstart/thieves/execute()
+	for(var/datum/mind/chosen_mind as anything in assigned)
+		var/datum/antagonist/thief/new_antag = new antag_datum
+		chosen_mind.add_antag_datum(new_antag)
+		GLOB.pre_setup_antags -= chosen_mind
+	return TRUE
+
 /// Ruleset for Nations
 /datum/dynamic_ruleset/roundstart/nations
 	name = "Nations"
 	required_candidates = 0
 	weight = 0 //admin only (and for good reason)
 	cost = 0
-	flags = LONE_RULESET
+	flags = LONE_RULESET | ONLY_RULESET
 
 /datum/dynamic_ruleset/roundstart/nations/execute()
 	. = ..()

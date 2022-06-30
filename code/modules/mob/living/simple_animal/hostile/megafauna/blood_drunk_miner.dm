@@ -37,8 +37,8 @@ Difficulty: Medium
 	ranged_cooldown_time = 1.6 SECONDS
 	pixel_x = -16
 	base_pixel_x = -16
-	crusher_loot = list(/obj/item/melee/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator, /obj/item/crusher_trophy/miner_eye)
-	loot = list(/obj/item/melee/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator)
+	crusher_loot = list(/obj/item/melee/cleaving_saw, /obj/item/gun/energy/recharge/kinetic_accelerator, /obj/item/crusher_trophy/miner_eye)
+	loot = list(/obj/item/melee/cleaving_saw, /obj/item/gun/energy/recharge/kinetic_accelerator)
 	wander = FALSE
 	del_on_death = TRUE
 	blood_volume = BLOOD_VOLUME_NORMAL
@@ -49,7 +49,7 @@ Difficulty: Medium
 	var/obj/item/melee/cleaving_saw/miner/miner_saw
 	var/guidance = FALSE
 	deathmessage = "falls to the ground, decaying into glowing particles."
-	deathsound = "bodyfall"
+	deathsound = SFX_BODYFALL
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	move_force = MOVE_FORCE_NORMAL //Miner beeing able to just move structures like bolted doors and glass looks kinda strange
 	/// Dash ability
@@ -82,12 +82,12 @@ Difficulty: Medium
 
 	Goto(target, move_to_delay, minimum_distance)
 	if(get_dist(src, target) > 4)
-		if(dash.Trigger(target))
+		if(dash.Trigger(target = target))
 			kinetic_accelerator.StartCooldown(0)
-			kinetic_accelerator.Trigger(target)
+			kinetic_accelerator.Trigger(target = target)
 	else
-		kinetic_accelerator.Trigger(target)
-	transform_weapon.Trigger(target)
+		kinetic_accelerator.Trigger(target = target)
+	transform_weapon.Trigger(target = target)
 
 /obj/item/melee/cleaving_saw/miner //nerfed saw because it is very murdery
 	force = 6
@@ -121,7 +121,7 @@ Difficulty: Medium
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/ex_act(severity, target)
-	if(dash.Trigger(target))
+	if(dash.Trigger(target = target))
 		return FALSE
 	return ..()
 
