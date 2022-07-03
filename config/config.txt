@@ -197,7 +197,7 @@ ID_CONSOLE_JOBSLOT_DELAY 30
 #ALLOW_VOTE_MODE
 
 ## allow players to initiate a map-change vote
-#ALLOW_VOTE_MAP
+ALLOW_VOTE_MAP
 
 ## min delay (deciseconds) between voting sessions (default 10 minutes)
 VOTE_DELAY 6000
@@ -212,7 +212,7 @@ VOTE_PERIOD 600
 DEFAULT_NO_VOTE
 
 ## disable abandon mob
-NORESPAWN
+#NORESPAWN
 
 ## set a hosted by name for unix platforms
 HOSTEDBY Alex
@@ -300,7 +300,7 @@ GITHUBURL https://github.com/The-Fleet/fleetstation13
 POPUP_ADMIN_PM
 
 ## Uncomment to allow special 'Easter-egg' events on special holidays such as seasonal holidays and stuff like 'Talk Like a Pirate Day' :3 YAARRR
-ALLOW_HOLIDAYS
+#ALLOW_HOLIDAYS
 
 ## Uncomment to show the names of the admin sending a pm from IRC instead of showing as a stealthmin.
 #SHOW_IRC_NAME
@@ -499,10 +499,10 @@ BASE_MC_TICK_RATE 1
 HIGH_POP_MC_TICK_RATE 1.1
 
 ##Engage high pop mode if player count raises above this (Player in this context means any connected user. Lobby, ghost or in-game all count)
-HIGH_POP_MC_MODE_AMOUNT 65
+HIGH_POP_MC_MODE_AMOUNT 10
 
 ##Disengage high pop mode if player count drops below this
-DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
+DISABLE_HIGH_POP_MC_MODE_AMOUNT 5
 
 ## Uncomment to prevent the world from sleeping while no players are connected after initializations
 #RESUME_AFTER_INITIALIZATIONS
