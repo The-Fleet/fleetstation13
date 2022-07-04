@@ -1,172 +1,172 @@
 {
-	"Dynamic": {},
-	"Roundstart": {
-		"Traitors": {
-			"cost": 8,
-			"scaling_cost": 9,
-			"weight": 1,
-			"required_candidates": 1,
-			"minimum_required_age": 0,
-			"requirements": [
-				10,
-				10,
-				10,
-				10,
-				10,
-				10,
-				10,
-				10,
-				10,
-				10
-			],
-			"antag_cap": {
-				"denominator": 24
-			},
-			"protected_roles": [
-				"Prisoner",
-				"Security Officer",
-				"Warden",
-				"Detective",
-				"Head of Security",
-				"Captain"
-			],
-			"restricted_roles": [
-				"Cyborg"
-			],
-		},
+    "Dynamic": {},
+    "Roundstart": {
+        "Traitors": {
+            "cost": 8,
+            "scaling_cost": 9,
+            "weight": 1,
+            "required_candidates": 1,
+            "minimum_required_age": 0,
+            "requirements": [
+                10,
+                10,
+                10,
+                10,
+                10,
+                10,
+                10,
+                10,
+                10,
+                10
+            ],
+            "antag_cap": {
+                "denominator": 24
+            },
+            "protected_roles": [
+                "Prisoner",
+                "Security Officer",
+                "Warden",
+                "Detective",
+                "Head of Security",
+                "Captain"
+            ],
+            "restricted_roles": [
+                "Cyborg"
+            ]
+        },
 
-		"Blood Brothers": {
-			"required_candidates": 2,
-			"weight": 1
-			"protected_roles": [
-				"Prisoner",
-				"Security Officer",
-				"Warden",
-				"Detective",
-				"Head of Security",
-				"Captain"
-			],
-		},
+        "Blood Brothers": {
+            "required_candidates": 2,
+            "weight": 1,
+            "protected_roles": [
+                "Prisoner",
+                "Security Officer",
+                "Warden",
+                "Detective",
+                "Head of Security",
+                "Captain"
+            ]
+        },
 
-		"Changelings": {
-			"required_candidates": 1,
-			"weight": 1
-		},
+        "Changelings": {
+            "required_candidates": 1,
+            "weight": 1
+        },
 
-		"Heretics": {
-			"weight": 0
-		},
+        "Heretics": {
+            "weight": 0
+        },
 
-		"Wizard": {
-			"weight": 0
-		},
+        "Wizard": {
+            "weight": 0
+        },
 
-		"Blood Cult": {
-			"weight": 0
-		},
+        "Blood Cult": {
+            "weight": 0
+        },
 
-		"Nuclear Emergency": {
-			"weight": 0
-		},
+        "Nuclear Emergency": {
+            "weight": 0
+        },
 
-		"Revolution": {
-			"weight": 0
-		},
+        "Revolution": {
+            "weight": 0
+        },
 
-		"Families": {
-			"weight": 1
-			"protected_roles": [
-				"Prisoner",
-				"Security Officer",
-				"Warden",
-				"Detective",
-				"Head of Security",
-				"Captain"
-			],
-		}
-	},
+        "Families": {
+            "weight": 1,
+            "protected_roles": [
+                "Prisoner",
+                "Security Officer",
+                "Warden",
+                "Detective",
+                "Head of Security",
+                "Captain"
+            ]
+        }
+    },
 
-	"Midround": {
-		"Syndicate Sleeper Agent": {
-			"weight": 1
-			"protected_roles": [
-				"Prisoner",
-				"Security Officer",
-				"Warden",
-				"Detective",
-				"Head of Security",
-				"Captain"
-			],
-		},
+    "Midround": {
+        "Syndicate Sleeper Agent": {
+            "weight": 1,
+            "protected_roles": [
+                "Prisoner",
+                "Security Officer",
+                "Warden",
+                "Detective",
+                "Head of Security",
+                "Captain"
+            ]
+        },
 
-		"Family Head Aspirants": {
-			"weight": 1
-			"protected_roles": [
-				"Prisoner",
-				"Security Officer",
-				"Warden",
-				"Detective",
-				"Head of Security",
-				"Captain"
-			],
-		},
+        "Family Head Aspirants": {
+            "weight": 1,
+            "protected_roles": [
+                "Prisoner",
+                "Security Officer",
+                "Warden",
+                "Detective",
+                "Head of Security",
+                "Captain"
+            ]
+        },
 
-		"Malfunctioning AI": {
-			"weight": 0
-		},
+        "Malfunctioning AI": {
+            "weight": 0
+        },
 
-		"Wizard": {
-			"weight": 0
-		},
+        "Wizard": {
+            "weight": 0
+        },
 
-		"Nuclear Assault": {
-			"weight": 0
-		},
+        "Nuclear Assault": {
+            "weight": 0
+        },
 
-		"Blob": {
-			"weight": 0
-		},
+        "Blob": {
+            "weight": 0
+        },
 
-		"Blob Infection": {
-			"weight": 0
-		},
+        "Blob Infection": {
+            "weight": 0
+        },
 
-		"Alien Infestation": {
-			"weight": 1
-		},
+        "Alien Infestation": {
+            "weight": 1
+        },
 
-		"Nightmare": {
-			"weight": 0
-		},
+        "Nightmare": {
+            "weight": 0
+        },
 
-		"Space Dragon": {
-			"weight": 0
-		},
+        "Space Dragon": {
+            "weight": 0
+        },
 
-		"Abductors": {
-			"weight": 1
-		},
+        "Abductors": {
+            "weight": 1
+        },
 
-		"Space Ninja": {
-			"weight": 0
-		},
+        "Space Ninja": {
+            "weight": 0
+        },
 
-		"Spiders": {
-			"weight": 1
-		}
-	},
+        "Spiders": {
+            "weight": 1
+        }
+    },
 
-	"Latejoin": {
-		"Syndicate Infiltrator": {
-			"weight": 1
-		},
+    "Latejoin": {
+        "Syndicate Infiltrator": {
+            "weight": 1
+        },
 
-		"Provocateur": {
-			"weight": 1
-		},
+        "Provocateur": {
+            "weight": 1
+        },
 
-		"Heretic Smuggler": {
-			"weight": 0
-		}
-	}
+        "Heretic Smuggler": {
+            "weight": 0
+        }
+    }
 }
