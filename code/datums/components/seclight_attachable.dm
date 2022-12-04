@@ -89,19 +89,19 @@
 		add_light(starting_light)
 
 /datum/component/seclite_attachable/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ATOM_DESTRUCTION, .proc/on_parent_deconstructed)
-	RegisterSignal(parent, COMSIG_ATOM_EXITED, .proc/on_light_exit)
-	RegisterSignal(parent, COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER), .proc/on_screwdriver)
-	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON_STATE, .proc/on_update_icon_state)
-	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, .proc/on_update_overlays)
-	RegisterSignal(parent, COMSIG_ITEM_UI_ACTION_CLICK, .proc/on_action_click)
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/on_attackby)
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/on_examine)
-	RegisterSignal(parent, COMSIG_PARENT_QDELETING, .proc/on_parent_deleted)
+	RegisterSignal(parent, COMSIG_OBJ_DECONSTRUCT, PROC_REF(on_parent_deconstructed))
+	RegisterSignal(parent, COMSIG_ATOM_EXITED, PROC_REF(on_light_exit))
+	RegisterSignal(parent, COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER), PROC_REF(on_screwdriver))
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON_STATE, PROC_REF(on_update_icon_state))
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(on_update_overlays))
+	RegisterSignal(parent, COMSIG_ITEM_UI_ACTION_CLICK, PROC_REF(on_action_click))
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_deleted))
 
 /datum/component/seclite_attachable/UnregisterFromParent()
 	UnregisterSignal(parent, list(
-		COMSIG_ATOM_DESTRUCTION,
+		COMSIG_OBJ_DECONSTRUCT,
 		COMSIG_ATOM_EXITED,
 		COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER),
 		COMSIG_ATOM_UPDATE_ICON_STATE,
@@ -131,10 +131,8 @@
 
 	// Make a new toggle light item action for our parent
 	var/obj/item/item_parent = parent
-	var/datum/action/item_action/toggle_seclight/toggle_action = new(item_parent)
+	var/datum/action/item_action/toggle_seclight/toggle_action = item_parent.add_item_action(/datum/action/item_action/toggle_seclight)
 	toggle_action_ref = WEAKREF(toggle_action)
-	if(attacher && item_parent.loc == attacher)
-		toggle_action.Grant(attacher)
 
 	update_light()
 
@@ -146,7 +144,6 @@
 
 	// It is possible the light was removed by being deleted.
 	if(!QDELETED(light))
-		UnregisterSignal(light, COMSIG_PARENT_QDELETING)
 		light.set_light_flags(light.light_flags & ~LIGHT_ATTACHED)
 		light.update_brightness()
 
@@ -173,7 +170,7 @@
 /datum/component/seclite_attachable/proc/update_light()
 	var/obj/item/item_parent = parent
 	item_parent.update_appearance()
-	item_parent.update_action_buttons()
+	item_parent.update_item_action_buttons()
 
 /// Signal proc for [COMSIG_ATOM_EXITED] that handles our light being removed or deleted from our parent.
 /datum/component/seclite_attachable/proc/on_light_exit(obj/item/source, atom/movable/gone, direction)
@@ -182,10 +179,16 @@
 	if(gone == light)
 		remove_light()
 
-/// Signal proc for [COMSIG_ATOM_DESTRUCTION] that drops our light to the ground if our parent is deconstructed.
+/// Signal proc for [COMSIG_OBJ_DECONSTRUCT] that drops our light to the ground if our parent is deconstructed.
 /datum/component/seclite_attachable/proc/on_parent_deconstructed(obj/item/source, disassembled)
 	SIGNAL_HANDLER
 
+	// Our light is gone already - Probably destroyed by whatever destroyed our parent. Just remove it.
+	if(QDELETED(light) || !is_light_removable)
+		remove_light()
+		return
+
+	// We were deconstructed in any other way, so we can just drop the light on the ground (which removes it via signal).
 	light.forceMove(source.drop_location())
 
 /// Signal proc for [COMSIG_PARENT_QDELETING] that deletes our light if our parent is deleted.
@@ -233,7 +236,7 @@
 	if(!light || !is_light_removable)
 		return
 
-	INVOKE_ASYNC(src, .proc/unscrew_light, source, user, tool)
+	INVOKE_ASYNC(src, PROC_REF(unscrew_light), source, user, tool)
 	return COMPONENT_BLOCK_TOOL_ATTACK
 
 /// Invoked asyncronously from [proc/on_screwdriver]. Handles removing the light from our parent.

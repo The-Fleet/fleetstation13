@@ -13,9 +13,10 @@ type NumberInputData = {
   min_value: number | null;
   timeout: number;
   title: string;
+  round_value: boolean;
 };
 
-export const NumberInputModal = (_, context) => {
+export const NumberInputModal = (props, context) => {
   const { act, data } = useBackend<NumberInputData>(context);
   const { init_value, large_buttons, message = '', timeout, title } = data;
   const [input, setInput] = useLocalState(context, 'input', init_value);
@@ -71,9 +72,8 @@ export const NumberInputModal = (_, context) => {
 /** Gets the user input and invalidates if there's a constraint. */
 const InputArea = (props, context) => {
   const { act, data } = useBackend<NumberInputData>(context);
-  const { min_value, max_value, init_value } = data;
+  const { min_value, max_value, init_value, round_value } = data;
   const { input, onClick, onChange } = props;
-
   return (
     <Stack fill>
       <Stack.Item>
@@ -89,6 +89,7 @@ const InputArea = (props, context) => {
           autoFocus
           autoSelect
           fluid
+          allowFloats={!round_value}
           minValue={min_value}
           maxValue={max_value}
           onChange={(_, value) => onChange(value)}
