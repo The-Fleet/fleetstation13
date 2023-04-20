@@ -43,6 +43,12 @@ map selenestation
 	disabled
 endmap
 
+map northstar
+	minplayers 50
+	votable
+endmap
+
+
 map runtimestation
 endmap
 

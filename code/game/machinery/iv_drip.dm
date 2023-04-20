@@ -2,12 +2,12 @@
 #define IV_TAKING 0
 ///IV drip operation mode when it injects reagents into the object
 #define IV_INJECTING 1
+///What the transfer rate value is rounded to
+#define IV_TRANSFER_RATE_STEP 0.01
 ///Minimum possible IV drip transfer rate in units per second
 #define MIN_IV_TRANSFER_RATE 0
 ///Maximum possible IV drip transfer rate in units per second
 #define MAX_IV_TRANSFER_RATE 5
-///What the transfer rate value is rounded to
-#define IV_TRANSFER_RATE_STEP 0.01
 
 ///Universal IV that can drain blood or feed reagents over a period of time from or to a replaceable container
 /obj/machinery/iv_drip
@@ -28,11 +28,15 @@
 	///Are we donating or injecting?
 	var/mode = IV_INJECTING
 	///whether we feed slower
-	var/transfer_rate = MIN_IV_TRANSFER_RATE
+	var/transfer_rate = MAX_IV_TRANSFER_RATE
 	///Internal beaker
 	var/obj/item/reagent_container
 	///Set false to block beaker use and instead use an internal reagent holder
 	var/use_internal_storage = FALSE
+	///If we're using the internal container, fill us UP with the below : list(/datum/reagent/water = 5000)
+	var/internal_list_reagents
+	///How many reagents can we hold?
+	var/internal_volume_maximum = 100
 	///Typecache of containers we accept
 	var/static/list/drip_containers = typecacheof(list(
 		/obj/item/reagent_containers/blood,
@@ -41,12 +45,16 @@
 	))
 	// If the blood draining tab should be greyed out
 	var/inject_only = FALSE
+	// Whether the injection maintained by the plumbing network
+	var/inject_from_plumbing = FALSE
 
 /obj/machinery/iv_drip/Initialize(mapload)
 	. = ..()
 	update_appearance(UPDATE_ICON)
 	if(use_internal_storage)
-		create_reagents(100, TRANSPARENT)
+		create_reagents(internal_volume_maximum, TRANSPARENT)
+		if(internal_list_reagents)
+			reagents.add_reagent_list(internal_list_reagents)
 	interaction_flags_machine |= INTERACT_MACHINE_OFFLINE
 
 /obj/machinery/iv_drip/Destroy()
@@ -67,23 +75,31 @@
 
 /obj/machinery/iv_drip/ui_data(mob/user)
 	var/list/data = list()
+
+	data["hasInternalStorage"] = use_internal_storage
+	data["hasContainer"] = reagent_container ? TRUE : FALSE
+	data["canRemoveContainer"] = !use_internal_storage
+
+	data["mode"] = mode == IV_INJECTING ? TRUE : FALSE
+	data["canDraw"] = inject_only || (attached && !isliving(attached)) ? FALSE : TRUE
+	data["injectFromPlumbing"] = inject_from_plumbing
+
+	data["canAdjustTransfer"] = inject_from_plumbing && mode == IV_INJECTING ? FALSE : TRUE
 	data["transferRate"] = transfer_rate
 	data["transferStep"] = IV_TRANSFER_RATE_STEP
-	data["maxInjectRate"] = MAX_IV_TRANSFER_RATE
-	data["minInjectRate"] = MIN_IV_TRANSFER_RATE
-	data["mode"] = mode == IV_INJECTING ? TRUE : FALSE
-	data["connected"] = attached ? TRUE : FALSE
+	data["maxTransferRate"] = MAX_IV_TRANSFER_RATE
+	data["minTransferRate"] = MIN_IV_TRANSFER_RATE
+
+	data["hasObjectAttached"] = attached ? TRUE : FALSE
 	if(attached)
 		data["objectName"] = attached.name
-	data["injectOnly"] = inject_only || (attached && !isliving(attached)) ? TRUE : FALSE
-	data["containerAttached"] = reagent_container ? TRUE : FALSE
+
 	var/datum/reagents/drip_reagents = get_reagents()
 	if(drip_reagents)
 		data["containerCurrentVolume"] = round(drip_reagents.total_volume, IV_TRANSFER_RATE_STEP)
 		data["containerMaxVolume"] = drip_reagents.maximum_volume
 		data["containerReagentColor"] = mix_color_from_reagents(drip_reagents.reagent_list)
-	data["useInternalStorage"] = use_internal_storage
-	data["isContainerRemovable"] = !use_internal_storage && !istype(src, /obj/machinery/iv_drip/saline)
+
 	return data
 
 /obj/machinery/iv_drip/ui_act(action, params)
@@ -104,7 +120,7 @@
 			return TRUE
 
 /// Sets the transfer rate to the provided value
-/obj/machinery/iv_drip/proc/set_transfer_rate(var/new_rate)
+/obj/machinery/iv_drip/proc/set_transfer_rate(new_rate)
 	if(!use_internal_storage && !reagent_container)
 		return
 	if(!attached)
@@ -142,7 +158,7 @@
 
 /obj/machinery/iv_drip/MouseDrop(atom/target)
 	. = ..()
-	if(!Adjacent(target) || !usr.canUseTopic(src, be_close = TRUE))
+	if(!Adjacent(target) || !usr.can_perform_action(src))
 		return
 	if(!isliving(usr))
 		to_chat(usr, span_warning("You can't do that!"))
@@ -150,8 +166,8 @@
 	if(!get_reagents())
 		to_chat(usr, span_warning("There's nothing attached to the IV drip!"))
 		return
-	if(!target.reagents)
-		to_chat(usr, span_warning("Target can't hold reagents!"))
+	if(!target.is_injectable(usr))
+		to_chat(usr, span_warning("Can't inject into this!"))
 		return
 	if(attached)
 		visible_message(span_warning("[attached] is detached from [src]."))
@@ -207,7 +223,7 @@
 		new /obj/item/stack/sheet/iron(loc)
 	qdel(src)
 
-/obj/machinery/iv_drip/process(delta_time)
+/obj/machinery/iv_drip/process(seconds_per_tick)
 	if(!attached)
 		return PROCESS_KILL
 
@@ -234,22 +250,22 @@
 	// Give reagents
 	if(mode)
 		if(drip_reagents.total_volume)
-			drip_reagents.trans_to(attached, transfer_rate * delta_time, methods = INJECT, show_message = FALSE) //make reagents reacts, but don't spam messages
+			drip_reagents.trans_to(attached, transfer_rate * seconds_per_tick, methods = INJECT, show_message = FALSE) //make reagents reacts, but don't spam messages
 			update_appearance(UPDATE_ICON)
 
 	// Take blood
 	else if (isliving(attached))
 		var/mob/living/attached_mob = attached
-		var/amount = min(transfer_rate * delta_time, drip_reagents.maximum_volume - drip_reagents.total_volume)
+		var/amount = min(transfer_rate * seconds_per_tick, drip_reagents.maximum_volume - drip_reagents.total_volume)
 		// If the beaker is full, ping
 		if(!amount)
 			set_transfer_rate(MIN_IV_TRANSFER_RATE)
-			visible_message(span_hear("[src] pings."))
+			audible_message(span_hear("[src] pings."))
 			return
 
 		// If the human is losing too much blood, beep.
 		if(attached_mob.blood_volume < BLOOD_VOLUME_SAFE && prob(5))
-			visible_message(span_hear("[src] beeps loudly."))
+			audible_message(span_hear("[src] beeps loudly."))
 			playsound(loc, 'sound/machines/twobeep_high.ogg', 50, TRUE)
 		var/atom/movable/target = use_internal_storage ? src : reagent_container
 		attached_mob.transfer_blood_to(target, amount)
@@ -309,7 +325,7 @@
 	if(!isliving(usr))
 		to_chat(usr, span_warning("You can't do that!"))
 		return
-	if (!usr.canUseTopic())
+	if(!usr.can_perform_action(src))
 		return
 	if(usr.incapacitated())
 		return
@@ -329,7 +345,7 @@
 	if(!isliving(usr))
 		to_chat(usr, span_warning("You can't do that!"))
 		return
-	if (!usr.canUseTopic())
+	if(!usr.can_perform_action(src))
 		return
 	if(usr.incapacitated())
 		return
@@ -384,16 +400,13 @@
 	density = TRUE
 	inject_only = TRUE
 
+	use_internal_storage = TRUE
+	internal_list_reagents = list(/datum/reagent/medicine/salglu_solution = 5000)
+	internal_volume_maximum = 5000
+
 /obj/machinery/iv_drip/saline/Initialize(mapload)
 	AddElement(/datum/element/update_icon_blocker)
 	. = ..()
-	reagent_container = new /obj/item/reagent_containers/cup/saline(src)
-
-/obj/machinery/iv_drip/saline/eject_beaker()
-	return
-
-/obj/machinery/iv_drip/saline/toggle_mode()
-	return
 
 ///modified IV that can be anchored and takes plumbing in- and output
 /obj/machinery/iv_drip/plumbing
@@ -403,6 +416,7 @@
 	base_icon_state = "plumb"
 	density = TRUE
 	use_internal_storage = TRUE
+	inject_from_plumbing = TRUE
 
 /obj/machinery/iv_drip/plumbing/Initialize(mapload)
 	. = ..()
@@ -419,3 +433,5 @@
 
 #undef MIN_IV_TRANSFER_RATE
 #undef MAX_IV_TRANSFER_RATE
+
+#undef IV_TRANSFER_RATE_STEP
