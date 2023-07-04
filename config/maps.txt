@@ -24,6 +24,7 @@ endmap
 
 map kilostation
 	default
+	voteweight 0.5
 	votable
 endmap
 
