@@ -15,6 +15,7 @@ endmap
 
 map metastation
 	votable
+	minplayers 8
 endmap
 
 map deltastation
@@ -28,6 +29,7 @@ endmap
 
 map icebox
 	votable
+	minplayers 8
 endmap
 
 map tramstation
