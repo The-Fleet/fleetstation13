@@ -28,7 +28,6 @@ endmap
 
 map icebox
 	votable
-	maxplayers 12
 endmap
 
 map tramstation
@@ -36,7 +35,7 @@ map tramstation
 endmap
 
 map heliostation
-	votable
+	disabled
 endmap
 
 map selenestation
@@ -44,12 +43,14 @@ map selenestation
 endmap
 
 map northstar
-	votable
+	disabled
 endmap
 
 
 map runtimestation
+	disabled
 endmap
 
 map multiz_debug
+	disabled
 endmap

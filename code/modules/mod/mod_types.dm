@@ -66,6 +66,7 @@
 		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/t_ray,
+		/obj/item/mod/module/quick_carry,
 	)
 
 /obj/item/mod/control/pre_equipped/advanced
@@ -106,6 +107,7 @@
 		/obj/item/mod/module/orebag,
 		/obj/item/mod/module/clamp,
 		/obj/item/mod/module/drill,
+		/obj/item/mod/module/mouthhole,
 	)
 	default_pins = list(
 		/obj/item/mod/module/gps,
@@ -240,6 +242,9 @@
 		/obj/item/mod/module/armor_booster,
 		/obj/item/mod/module/jetpack/advanced,
 	)
+
+/obj/item/mod/control/pre_equipped/nuclear/unrestricted
+	req_access = null
 
 /obj/item/mod/control/pre_equipped/elite
 	theme = /datum/mod_theme/elite
