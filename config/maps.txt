@@ -13,6 +13,10 @@ Format:
 	votable (is this map votable)
 endmap
 
+map birdshot
+	votable
+endmap
+
 map metastation
 	votable
 	minplayers 8
@@ -47,7 +51,6 @@ endmap
 map northstar
 	disabled
 endmap
-
 
 map runtimestation
 	disabled
