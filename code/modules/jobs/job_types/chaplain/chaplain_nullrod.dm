@@ -20,6 +20,8 @@
 	var/chaplain_spawnable = TRUE
 	/// Short description of what this item is capable of, for radial menu uses.
 	var/menu_description = "A standard chaplain's weapon. Fits in pockets. Can be worn on the belt."
+	/// Lazylist, tracks refs()s to all cultists which have been crit or killed by this nullrod.
+	var/list/cultists_slain
 
 /obj/item/nullrod/Initialize(mapload)
 	. = ..()
@@ -31,7 +33,7 @@
 		on_clear_callback = CALLBACK(src, PROC_REF(on_cult_rune_removed)), \
 		effects_we_clear = list(/obj/effect/rune, /obj/effect/heretic_rune, /obj/effect/cosmic_rune), \
 	)
-	AddElement(/datum/element/bane, target_type = /mob/living/simple_animal/revenant, damage_multiplier = 0, added_damage = 25, requires_combat_mode = FALSE)
+	AddElement(/datum/element/bane, target_type = /mob/living/basic/revenant, damage_multiplier = 0, added_damage = 25, requires_combat_mode = FALSE)
 
 	if(!GLOB.holy_weapon_type && type == /obj/item/nullrod)
 		var/list/rods = list()
@@ -41,7 +43,11 @@
 			rods[nullrod_type] = initial(nullrod_type.menu_description)
 		//special non-nullrod subtyped shit
 		rods[/obj/item/gun/ballistic/bow/divine/with_quiver] = "A divine bow and 10 quivered holy arrows."
-		rods[/obj/item/organ/internal/cyberimp/arm/shard/scythe] = "A bargain with something sinister."
+		rods[/obj/item/organ/internal/cyberimp/arm/shard/scythe] = "A shard that implants itself into your arm, \
+									allowing you to conjure forth a vorpal scythe. \
+									Allows you to behead targets for empowered strikes. \
+									Harms you if you dismiss the scythe without first causing harm to a creature. \
+									The shard also causes you to become Morbid, shifting your interests towards the macabre."
 		AddComponent(/datum/component/subtype_picker, rods, CALLBACK(src, PROC_REF(on_holy_weapon_picked)))
 
 /obj/item/nullrod/proc/on_holy_weapon_picked(obj/item/nullrod/holy_weapon_type)
@@ -61,6 +67,27 @@
 /obj/item/nullrod/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] is killing [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to get closer to god!"))
 	return (BRUTELOSS|FIRELOSS)
+
+/obj/item/nullrod/attack(mob/living/target_mob, mob/living/user, params)
+	if(!user.mind?.holy_role)
+		return ..()
+	if(!IS_CULTIST(target_mob) || istype(target_mob, /mob/living/carbon/human/cult_ghost))
+		return ..()
+
+	var/old_stat = target_mob.stat
+	. = ..()
+	if(old_stat < target_mob.stat)
+		LAZYOR(cultists_slain, REF(target_mob))
+	return .
+
+/obj/item/nullrod/examine(mob/user)
+	. = ..()
+	if(!IS_CULTIST(user) || !GET_ATOM_BLOOD_DNA_LENGTH(src))
+		return
+
+	var/num_slain = LAZYLEN(cultists_slain)
+	. += span_cultitalic("It has the blood of [num_slain] fallen cultist[num_slain == 1 ? "" : "s"] on it. \
+		<b>Offering</b> it to Nar'sie will transform it into a [num_slain >= 3 ? "powerful" : "standard"] cult weapon.")
 
 /obj/item/nullrod/godhand
 	name = "god hand"
@@ -132,14 +159,14 @@
 	menu_description = "A sharp claymore which provides a low chance of blocking incoming melee attacks. Can be worn on the back or belt."
 
 /obj/item/nullrod/claymore/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK, damage_type = BRUTE)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //Don't bring a sword to a gunfight
+	if(attack_type == PROJECTILE_ATTACK || attack_type == LEAP_ATTACK)
+		final_block_chance = 0 //Don't bring a sword to a gunfight, and also you aren't going to really block someone full body tackling you with a sword
 	return ..()
 
 /obj/item/nullrod/claymore/darkblade
 	name = "dark blade"
 	desc = "Spread the glory of the dark gods!"
-	icon = 'icons/obj/cult/items_and_weapons.dmi'
+	icon = 'icons/obj/weapons/sword.dmi'
 	icon_state = "cultblade"
 	inhand_icon_state = "cultblade"
 	worn_icon_state = "cultblade"
@@ -365,7 +392,7 @@
 /obj/item/nullrod/clown
 	name = "clown dagger"
 	desc = "Used for absolutely hilarious sacrifices."
-	icon = 'icons/obj/wizard.dmi'
+	icon = 'icons/obj/weapons/khopesh.dmi'
 	icon_state = "clownrender"
 	inhand_icon_state = "cultdagger"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
@@ -589,7 +616,7 @@
 /obj/item/nullrod/hypertool
 	name = "hypertool"
 	desc = "A tool so powerful even you cannot perfectly use it."
-	icon = 'icons/obj/device.dmi'
+	icon = 'icons/obj/weapons/club.dmi'
 	icon_state = "hypertool"
 	inhand_icon_state = "hypertool"
 	worn_icon_state = "hypertool"

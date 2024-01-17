@@ -42,6 +42,21 @@
 	icon_file = 'icons/obj/clothing/belt_overlays.dmi'
 	json_config = 'code/datums/greyscale/json_configs/screwdriver_worn.json'
 
+/datum/greyscale_config/fish_analyzer_inhand_left
+	name = "Held Fish Analyzer, Left"
+	icon_file = 'icons/mob/inhands/items_lefthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/fish_analyzer_worn.json'
+
+/datum/greyscale_config/fish_analyzer_inhand_right
+	name = "Held Fish Analyzer, Right"
+	icon_file = 'icons/mob/inhands/items_righthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/fish_analyzer_worn.json'
+
+/datum/greyscale_config/fish_analyzer_worn
+	name = "Worn Fish Analyzer"
+	icon_file = 'icons/mob/clothing/belt.dmi'
+	json_config = 'code/datums/greyscale/json_configs/fish_analyzer_worn.json'
+
 //
 // WEAPONS
 //
@@ -152,57 +167,57 @@
 
 /datum/greyscale_config/encryptionkey_basic
 	name = "Basic Encryptionkey"
-	icon_file = 'icons/obj/radio.dmi'
+	icon_file = 'icons/obj/devices/circuitry_n_data.dmi'
 	json_config = 'code/datums/greyscale/json_configs/encryptionkey_basic.json'
 
 /datum/greyscale_config/encryptionkey_cube
 	name = "Block Encryptionkey"
-	icon_file = 'icons/obj/radio.dmi'
+	icon_file = 'icons/obj/devices/circuitry_n_data.dmi'
 	json_config = 'code/datums/greyscale/json_configs/encryptionkey_cube.json'
 
 /datum/greyscale_config/encryptionkey_research
 	name = "Research Encryptionkey"
-	icon_file = 'icons/obj/radio.dmi'
+	icon_file = 'icons/obj/devices/circuitry_n_data.dmi'
 	json_config = 'code/datums/greyscale/json_configs/encryptionkey_research.json'
 
 /datum/greyscale_config/encryptionkey_syndicate
 	name = "Syndicate Encryptionkey"
-	icon_file = 'icons/obj/radio.dmi'
+	icon_file = 'icons/obj/devices/circuitry_n_data.dmi'
 	json_config = 'code/datums/greyscale/json_configs/encryptionkey_syndicate.json'
 
 /datum/greyscale_config/encryptionkey_medical
 	name = "Medical Encryptionkey"
-	icon_file = 'icons/obj/radio.dmi'
+	icon_file = 'icons/obj/devices/circuitry_n_data.dmi'
 	json_config = 'code/datums/greyscale/json_configs/encryptionkey_medical.json'
 
 /datum/greyscale_config/encryptionkey_service
 	name = "Service Encryptionkey"
-	icon_file = 'icons/obj/radio.dmi'
+	icon_file = 'icons/obj/devices/circuitry_n_data.dmi'
 	json_config = 'code/datums/greyscale/json_configs/encryptionkey_service.json'
 
 /datum/greyscale_config/encryptionkey_engineering
 	name = "Engineering Encryptionkey"
-	icon_file = 'icons/obj/radio.dmi'
+	icon_file = 'icons/obj/devices/circuitry_n_data.dmi'
 	json_config = 'code/datums/greyscale/json_configs/encryptionkey_engineering.json'
 
 /datum/greyscale_config/encryptionkey_centcom
 	name = "Centcom Encryptionkey"
-	icon_file = 'icons/obj/radio.dmi'
+	icon_file = 'icons/obj/devices/circuitry_n_data.dmi'
 	json_config = 'code/datums/greyscale/json_configs/encryptionkey_centcom.json'
 
 /datum/greyscale_config/encryptionkey_cargo
 	name = "Cargo Encryptionkey"
-	icon_file = 'icons/obj/radio.dmi'
+	icon_file = 'icons/obj/devices/circuitry_n_data.dmi'
 	json_config = 'code/datums/greyscale/json_configs/encryptionkey_cargo.json'
 
 /datum/greyscale_config/encryptionkey_security
 	name = "Security Encryptionkey"
-	icon_file = 'icons/obj/radio.dmi'
+	icon_file = 'icons/obj/devices/circuitry_n_data.dmi'
 	json_config = 'code/datums/greyscale/json_configs/encryptionkey_security.json'
 
 /datum/greyscale_config/quantum_keycard
 	name = "Quantum Keycard"
-	icon_file = 'icons/obj/device.dmi'
+	icon_file = 'icons/obj/devices/tool.dmi'
 	json_config = 'code/datums/greyscale/json_configs/quantum_keycard.json'
 
 //
@@ -295,46 +310,17 @@
 	json_config = 'code/datums/greyscale/json_configs/tape_piece_spikes_worn.json'
 
 //
-// BUCKETS
-//
-
-/datum/greyscale_config/buckets
-	name = "Buckets"
-	icon_file = 'icons/obj/janitor.dmi'
-	json_config = 'code/datums/greyscale/json_configs/buckets.json'
-
-/datum/greyscale_config/buckets_worn
-	name = "Buckets Worn"
-	icon_file = 'icons/mob/clothing/head/utility.dmi'
-	json_config = 'code/datums/greyscale/json_configs/buckets.json'
-
-/datum/greyscale_config/buckets_inhands_left
-	name = "Buckets Inhands Left"
-	icon_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
-	json_config = 'code/datums/greyscale/json_configs/buckets.json'
-
-/datum/greyscale_config/buckets_inhands_right
-	name = "Buckets Inhands Right"
-	icon_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
-	json_config = 'code/datums/greyscale/json_configs/buckets.json'
-
-/datum/greyscale_config/buckets_cleanbot
-	name = "Buckets - Cleanbot"
-	icon_file = 'icons/mob/silicon/aibots.dmi'
-	json_config = 'code/datums/greyscale/json_configs/buckets_bot.json'
-
-//
 // MISC
 //
 
 /datum/greyscale_config/circuit
 	name = "Circuit Board"
-	icon_file = 'icons/obj/module.dmi'
+	icon_file = 'icons/obj/devices/circuitry_n_data.dmi'
 	json_config = 'code/datums/greyscale/json_configs/circuit.json'
 
 /datum/greyscale_config/janicart_upgrade
 	name = "Janicart Upgrade"
-	icon_file = 'icons/obj/janicart_upgrade.dmi'
+	icon_file = 'icons/obj/service/janicart_upgrade.dmi'
 	json_config = 'code/datums/greyscale/json_configs/janicart_upgrade.json'
 
 /datum/greyscale_config/janicart_upgrade/installed
@@ -342,7 +328,7 @@
 
 /datum/greyscale_config/flower_simple
 	name = "Flower"
-	icon_file = 'icons/obj/hydroponics/harvest.dmi'
+	icon_file = 'icons/obj/service/hydroponics/harvest.dmi'
 	json_config = 'code/datums/greyscale/json_configs/simple_flower.json'
 
 /datum/greyscale_config/flower_simple_worn

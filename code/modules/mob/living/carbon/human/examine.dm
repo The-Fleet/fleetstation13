@@ -1,7 +1,7 @@
 /mob/living/carbon/human/examine(mob/user)
 //this is very slightly better than it was because you can use it more places. still can't do \his[src] though.
-	var/t_He = p_they(TRUE)
-	var/t_His = p_their(TRUE)
+	var/t_He = p_They()
+	var/t_His = p_Their()
 	var/t_his = p_their()
 	var/t_him = p_them()
 	var/t_has = p_have()
@@ -27,13 +27,14 @@
 	//uniform
 	if(w_uniform && !(obscured & ITEM_SLOT_ICLOTHING) && !(w_uniform.item_flags & EXAMINE_SKIP))
 		//accessory
-		var/accessory_msg
+		var/accessory_message = ""
 		if(istype(w_uniform, /obj/item/clothing/under))
-			var/obj/item/clothing/under/U = w_uniform
-			if(U.attached_accessory)
-				accessory_msg += " with [icon2html(U.attached_accessory, user)] \a [U.attached_accessory]"
+			var/obj/item/clothing/under/undershirt = w_uniform
+			var/list/accessories = undershirt.list_accessories_with_icon(user)
+			if(length(accessories))
+				accessory_message = " with [english_list(accessories)] attached"
 
-		. += "[t_He] [t_is] wearing [w_uniform.get_examine_string(user)][accessory_msg]."
+		. += "[t_He] [t_is] wearing [w_uniform.get_examine_string(user)][accessory_message]."
 	//head
 	if(head && !(obscured & ITEM_SLOT_HEAD) && !(head.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_is] wearing [head.get_examine_string(user)] on [t_his] head."
@@ -115,7 +116,7 @@
 		var/obj/item/clothing/glasses/G = get_item_by_slot(ITEM_SLOT_EYES)
 		var/are_we_in_weekend_at_bernies = G?.tint && buckled && istype(buckled, /obj/vehicle/ridden/wheelchair)
 
-		if(isliving(user) && (HAS_TRAIT(user.mind, TRAIT_NAIVE) || are_we_in_weekend_at_bernies))
+		if(isliving(user) && (HAS_MIND_TRAIT(user, TRAIT_NAIVE) || are_we_in_weekend_at_bernies))
 			just_sleeping = TRUE
 
 		if(!just_sleeping)
@@ -201,16 +202,6 @@
 				msg += "[t_He] [t_has] <b>moderate</b> [damage_desc[BURN]]!\n"
 			else
 				msg += "<B>[t_He] [t_has] severe [damage_desc[BURN]]!</B>\n"
-
-		temp = getCloneLoss()
-		if(temp)
-			if(temp < 25)
-				msg += "[t_He] [t_has] minor [damage_desc[CLONE]].\n"
-			else if(temp < 50)
-				msg += "[t_He] [t_has] <b>moderate</b> [damage_desc[CLONE]]!\n"
-			else
-				msg += "<b>[t_He] [t_has] severe [damage_desc[CLONE]]!</b>\n"
-
 
 	if(has_status_effect(/datum/status_effect/fire_handler/fire_stacks))
 		msg += "[t_He] [t_is] covered in something flammable.\n"
@@ -334,7 +325,7 @@
 			if(!key)
 				msg += "[span_deadsay("[t_He] [t_is] totally catatonic. The stresses of life in deep-space must have been too much for [t_him]. Any recovery is unlikely.")]\n"
 			else if(!client)
-				msg += "[t_He] [t_has] a blank, absent-minded stare and appears completely unresponsive to anything. [t_He] may snap out of it soon.\n"
+				msg += "[span_deadsay("[t_He] [t_has] a blank, absent-minded stare and appears completely unresponsive to anything. [t_He] may snap out of it soon.")]\n"
 
 	var/scar_severity = 0
 	for(var/i in all_scars)
@@ -360,6 +351,14 @@
 	if (!isnull(trait_exam))
 		. += trait_exam
 
+	if(isliving(user))
+		var/mob/living/morbid_weirdo = user
+		if(HAS_MIND_TRAIT(morbid_weirdo, TRAIT_MORBID))
+			if(HAS_TRAIT(src, TRAIT_DISSECTED))
+				msg += "[span_notice("[t_He] appears to have been dissected. Useless for examination... <b><i>for now.</i></b>")]\n"
+			if(HAS_TRAIT(src, TRAIT_SURGICALLY_ANALYZED))
+				msg += "[span_notice("A skilled hand has mapped this one's internal intricacies. It will be far easier to perform future experimentations upon [t_him]. <b><i>Exquisite.</i></b>")]\n"
+
 	var/perpname = get_face_name(get_id_name(""))
 	if(perpname && (HAS_TRAIT(user, TRAIT_SECURITY_HUD) || HAS_TRAIT(user, TRAIT_MEDICAL_HUD)))
 		var/datum/record/crew/target_record = find_record(perpname)
@@ -384,7 +383,7 @@
 			. += "<a href='?src=[REF(src)];hud=m;quirk=1;examine_time=[world.time]'>\[See quirks\]</a>"
 
 		if(HAS_TRAIT(user, TRAIT_SECURITY_HUD))
-			if(!user.stat && user != src)
+			if((user.stat == CONSCIOUS || isobserver(user)) && user != src)
 			//|| !user.canmove || user.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
 				var/wanted_status = WANTED_NONE
 				var/security_note = "None."
@@ -394,15 +393,18 @@
 					wanted_status = target_record.wanted_status
 					if(target_record.security_note)
 						security_note = target_record.security_note
-
-				. += "<span class='deptradio'>Criminal status:</span> <a href='?src=[REF(src)];hud=s;status=1;examine_time=[world.time]'>\[[wanted_status]\]</a>"
+				if(ishuman(user))
+					. += "<span class='deptradio'>Criminal status:</span> <a href='?src=[REF(src)];hud=s;status=1;examine_time=[world.time]'>\[[wanted_status]\]</a>"
+				else
+					. += "<span class='deptradio'>Criminal status:</span> [wanted_status]"
 				. += "<span class='deptradio'>Important Notes: [security_note]"
-				. += jointext(list("<span class='deptradio'>Security record:</span> <a href='?src=[REF(src)];hud=s;view=1;examine_time=[world.time]'>\[View\]</a>",
-					"<a href='?src=[REF(src)];hud=s;add_citation=1;examine_time=[world.time]'>\[Add citation\]</a>",
-					"<a href='?src=[REF(src)];hud=s;add_crime=1;examine_time=[world.time]'>\[Add crime\]</a>",
-					"<a href='?src=[REF(src)];hud=s;add_note=1;examine_time=[world.time]'>\[Add note\]</a>"), "")
+				. += "<span class='deptradio'>Security record:</span> <a href='?src=[REF(src)];hud=s;view=1;examine_time=[world.time]'>\[View\]</a>"
+				if(ishuman(user))
+					. += jointext(list("<a href='?src=[REF(src)];hud=s;add_citation=1;examine_time=[world.time]'>\[Add citation\]</a>",
+						"<a href='?src=[REF(src)];hud=s;add_crime=1;examine_time=[world.time]'>\[Add crime\]</a>",
+						"<a href='?src=[REF(src)];hud=s;add_note=1;examine_time=[world.time]'>\[Add note\]</a>"), "")
 	else if(isobserver(user))
-		. += span_info("<b>Traits:</b> [get_quirk_string(FALSE, CAT_QUIRK_ALL)]")
+		. += span_info("<b>Quirks:</b> [get_quirk_string(FALSE, CAT_QUIRK_ALL)]")
 	. += "</span>"
 
 	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE, user, .)
@@ -443,4 +445,4 @@
 			age_text = "very old"
 		if(101 to INFINITY)
 			age_text = "withering away"
-	. += list(span_notice("[p_they(TRUE)] appear[p_s()] to be [age_text]."))
+	. += list(span_notice("[p_They()] appear[p_s()] to be [age_text]."))

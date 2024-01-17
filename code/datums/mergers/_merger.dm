@@ -28,7 +28,7 @@
 	src.attempt_merge_proc = attempt_merge_proc
 	Refresh()
 
-/datum/merger/Destroy(force, ...)
+/datum/merger/Destroy(force)
 	for(var/atom/thing as anything in members)
 		RemoveMember(thing)
 	return ..()
@@ -131,7 +131,7 @@
 /datum/merger/proc/check_turf(turf/location, list/found_turfs, asking_from)
 	var/found_something = FALSE
 	// if asking_from is invalid (like if it's 0), we get a random output. that's bad, let's check for falsyness
-	var/us_to_them = asking_from && turn(asking_from, 180)
+	var/us_to_them = asking_from && REVERSE_DIR(asking_from)
 
 	if(found_turfs[location])
 		found_turfs[location][MERGE_TURF_PACKET_DIR] |= us_to_them
