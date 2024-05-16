@@ -20,6 +20,7 @@ map birdshot
 endmap
 
 map metastation
+	minplayers 10
 	votable
 endmap
 
@@ -30,7 +31,6 @@ endmap
 map icebox
 	default
 	votable
-	minplayers 8
 endmap
 
 map tramstation
